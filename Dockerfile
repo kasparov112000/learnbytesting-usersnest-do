@@ -17,7 +17,7 @@ RUN npm run build
 #
 # UNIT TESTING
 #
-FROM node:12
+FROM node:16
 
 ARG UNIT_TEST=no
 WORKDIR /var/app

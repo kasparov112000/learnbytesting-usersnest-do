@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start": "node ./app/server.js",
+    "start:local": "ts-node-dev -r tsconfig-paths/register src/main.ts",
     "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/src/main.js\"",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest --runInBand --verbose",

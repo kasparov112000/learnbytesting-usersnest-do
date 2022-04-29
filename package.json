@@ -15,6 +15,7 @@
     "precommit": "npm run lint && npm run build && npm run test"
   },
   "dependencies": {
+    "@types/superagent": "4.1.13",
     "@hapi/joi": "^17.1.1",
     "@nestjs/common": "^6.11.11",
     "@nestjs/core": "^6.11.11",

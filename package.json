@@ -15,7 +15,6 @@
     "precommit": "npm run lint && npm run build && npm run test"
   },
   "dependencies": {
-    "@types/superagent": "4.1.13",
     "@hapi/joi": "^17.1.1",
     "@nestjs/common": "^6.11.11",
     "@nestjs/core": "^6.11.11",
@@ -23,12 +22,13 @@
     "@nestjs/platform-express": "^6.11.11",
     "@nestjs/swagger": "^4.4.0",
     "@nestjs/testing": "^6.11.11",
+    "@types/superagent": "4.1.13",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.11.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
-    "monet": "^0.9.1",
+    "monet": "^0.9.3",
     "mongoose": "^5.9.5",
     "reflect-metadata": "^0.1.13",
     "request-promise-native": "^1.0.8",

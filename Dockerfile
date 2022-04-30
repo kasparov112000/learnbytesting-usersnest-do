@@ -1,54 +1,42 @@
-#
-# BASE
-#
-FROM scratch
+# PRODUCTION DOCKERFILE
+# ---------------------
+# This Dockerfile allows to build a Docker image of the NestJS application
+# and based on a NodeJS 14 image. The multi-stage mechanism allows to build
+# the application in a "builder" stage and then create a lightweight production
+# image containing the required dependencies and the JS build files.
+# 
+# Dockerfile best practices
+# https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+# Dockerized NodeJS best practices
+# https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md
+# https://www.bretfisher.com/node-docker-good-defaults/
+# http://goldbergyoni.com/checklist-best-practice-of-node-js-in-production/
 
-#
-# BUILD
-#
-FROM node:16
-WORKDIR /var/app
+FROM node:16-alpine as builder
 
-ADD package.json .
-RUN npm install
-COPY . .
-RUN npm run build
+ENV NODE_ENV build
 
-#
-# UNIT TESTING
-#
-FROM node:16
+USER node
+WORKDIR /home/node
 
-ARG UNIT_TEST=no
-WORKDIR /var/app
+COPY package*.json ./
+RUN npm ci
 
-COPY --from=1 /var/app  /var/app
+COPY --chown=node:node . .
+RUN npm run build \
+    && npm prune --production
 
-RUN if [ "${UNIT_TEST}" = "yes" ]; then \
-    echo "**** UNIT TESTING ****"; \
-    npm test; \
-    fi
+# ---
 
-#
-# RUNTIME
-#
-FROM node:12
-EXPOSE 3000
-ENV ENV_NAME=${ENV_NAME}
+FROM node:16-alpine
 
-# RUN groupadd pwcapp \
-#     && adduser --quiet --home /var/app --ingroup pwcapp --gecos 'PwC' --disabled-password pwcapp
+ENV NODE_ENV production
 
-WORKDIR /var/app
+USER node
+WORKDIR /home/node
 
-COPY --from=1 /var/app/package.json .
-# COPY --from=1 /var/app/.npmrc .
-COPY --from=1 /var/app/build .
-COPY --from=1 /var/app/docs ./docs/
+COPY --from=builder --chown=node:node /home/node/package*.json ./
+COPY --from=builder --chown=node:node /home/node/node_modules/ ./node_modules/
+COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
 
-# RUN chown -R pwcapp:pwcapp /var/app
-
-# USER pwcapp 
-RUN npm install --production
-
-ENTRYPOINT ["npm", "start"]
+CMD ["node", "dist/server.js"]

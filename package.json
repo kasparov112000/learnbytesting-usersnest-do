@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "node ./app/server.js",
+    "start": "node ./dist/main.js",
     "start:local": "ts-node-dev -r tsconfig-paths/register src/main.ts",
     "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/src/main.js\"",
     "lint": "tslint -p tsconfig.json -c tslint.json",

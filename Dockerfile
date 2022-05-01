@@ -36,7 +36,6 @@ WORKDIR /home/node
 COPY --from=builder --chown=node:node /home/node/package*.json ./
 COPY --from=builder --chown=node:node /home/node/node_modules/ ./node_modules/
 COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
-COPY --from=builder --chown=node:node /home/node/dev.env ./dist/
 EXPOSE 3000
 
 CMD ["node", "./dist/main.js"]

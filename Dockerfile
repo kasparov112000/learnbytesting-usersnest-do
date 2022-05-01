@@ -1,41 +1,28 @@
-# PRODUCTION DOCKERFILE
-# ---------------------
-# This Dockerfile allows to build a Docker image of the NestJS application
-# and based on a NodeJS 14 image. The multi-stage mechanism allows to build
-# the application in a "builder" stage and then create a lightweight production
-# image containing the required dependencies and the JS build files.
-# 
-# Dockerfile best practices
-# https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
-# Dockerized NodeJS best practices
-# https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md
-# https://www.bretfisher.com/node-docker-good-defaults/
-# http://goldbergyoni.com/checklist-best-practice-of-node-js-in-production/
+FROM node:14-alpine As development
 
-FROM node:16-alpine as builder
-
-ENV NODE_ENV build
-
-USER node
-WORKDIR /home/node
+WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm ci
 
-COPY --chown=node:node . .
-RUN npm run build \
-    && npm prune --production
+RUN npm install --only=development
 
-FROM node:16-alpine
+COPY . .
 
-# ENV NODE_ENV dev
+RUN npm run build
 
-USER node
-WORKDIR /home/node
+FROM node:14-alpine As production
 
-COPY --from=builder --chown=node:node /home/node/package*.json ./
-COPY --from=builder --chown=node:node /home/node/node_modules/ ./node_modules/
-COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
-EXPOSE 3000
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 
-CMD ["node", "./dist/main.js"]
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY . .
+
+COPY --from=development /usr/src/app/dist ./dist
+
+CMD ["node", "dist/main"]

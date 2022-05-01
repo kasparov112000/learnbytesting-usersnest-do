@@ -31,8 +31,8 @@ import { identity } from 'rxjs';
 import { ObjectIdValidationPipe } from '../object-id.validation.pipe';
 
 @ApiBasicAuth()
-@ApiTags('users')
-@Controller('users')
+@ApiTags('usersnest')
+@Controller('usersnest')
 export class UsersController {
   constructor(
     @Inject(USERS_SERVICE)

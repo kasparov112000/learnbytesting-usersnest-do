@@ -7,7 +7,7 @@
     ],
   "compilerOptions": {
    "skipLibCheck": true,
-    "module": "commonjs",
+    "module": "commonjs", 
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,

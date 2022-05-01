@@ -49,7 +49,7 @@ async function bootstrap() {
     .addBasicAuth()
     .build();
 
-  app.setGlobalPrefix('/api');
+  // app.setGlobalPrefix('/api');
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
@@ -59,7 +59,7 @@ async function bootstrap() {
   await app.listen(port);
 
   console.log(`Listening on port: ${port}`);
-  console.log(`Explore api on http://localhost:${port}/api`);
+  console.log(`Explore api on http://localhost:${port}`);
 
   return app;
 }

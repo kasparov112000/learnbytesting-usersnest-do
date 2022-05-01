@@ -20,6 +20,7 @@ USER node
 WORKDIR /home/node
 
 COPY package*.json ./
+COPY dev.ts ./
 RUN npm ci
 
 COPY --chown=node:node . .

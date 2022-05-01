@@ -28,7 +28,7 @@ RUN npm run build \
 
 FROM node:16-alpine
 
-ENV NODE_ENV dev
+# ENV NODE_ENV dev
 
 USER node
 WORKDIR /home/node

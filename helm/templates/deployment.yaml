@@ -48,12 +48,12 @@ spec:
               value: "dbAdmin"
           ports:
             - name: http
-              containerPort: 3000
+              containerPort: 3022
               protocol: TCP
           readinessProbe:
             httpGet:
               path: /healthcheck
-              port: 3000
+              port: 3022
           resources:
              {{- toYaml .Values.resources | nindent 12 }}
              {{- with .Values.nodeSelector }}

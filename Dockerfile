@@ -14,6 +14,7 @@ FROM node:14-alpine As production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
+EXPOSE 3000
 
 WORKDIR /usr/src/app
 

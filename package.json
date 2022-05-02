@@ -22,6 +22,7 @@
     "@nestjs/mongoose": "^6.4.0",
     "@nestjs/platform-express": "^6.11.11",
     "@nestjs/swagger": "^4.4.0",
+    "@nestjs/terminus": "^8.0.6",
     "@nestjs/testing": "^6.11.11",
     "@types/superagent": "4.1.13",
     "class-transformer": "^0.3.1",

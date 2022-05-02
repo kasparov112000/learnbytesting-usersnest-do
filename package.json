@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "@nestjs/axios": "0.0.7",
     "@nestjs/common": "^6.11.11",
     "@nestjs/config": "^2.0.0",
     "@nestjs/core": "^6.11.11",

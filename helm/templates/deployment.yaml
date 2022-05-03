@@ -48,7 +48,7 @@ spec:
               value: "dbAdmin"
           ports:
             - name: http
-              containerPort: 3022
+              containerPort: 3000
               protocol: TCP
           readinessProbe:
             httpGet:

@@ -37,7 +37,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
           push: true
-          tags: kasparov112000/learnbytesting-usersnest-docker:latest
+          tags: kasparov112000/learnbytesting-usersnest-do:latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
 

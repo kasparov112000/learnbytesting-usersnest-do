@@ -8,7 +8,7 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: 80 #{{ .Values.service.port }}
-      targetPort: 3022
+      targetPort: 3000
       protocol: TCP
       name: http
   selector:
